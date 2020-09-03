@@ -20,8 +20,11 @@ class _Navegacion extends StatelessWidget {
     final navegacionModel = Provider.of<_NavegacionModel>(context);
 
     return BottomNavigationBar(
-      currentIndex: 0,
-      onTap: (i) => print('$i'),
+      // 1.- Escuchando
+      currentIndex: navegacionModel.paginaActual,
+      // 2.- Actualizando
+      onTap: (i) => navegacionModel.paginaActual = i,
+      // 3.- Redibujando
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline),
@@ -39,7 +42,11 @@ class _Navegacion extends StatelessWidget {
 class _Paginas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    final navegacionModel = Provider.of<_NavegacionModel>(context);
+
     return PageView(
+      controller: navegacionModel.pageController,
       // physics: BouncingScrollPhysics(),
       physics: NeverScrollableScrollPhysics(),
       children: [
@@ -58,11 +65,17 @@ class _Paginas extends StatelessWidget {
 // Estructura de un Provider Basico
 class _NavegacionModel with ChangeNotifier {
   int _paginaActual = 0;
+  PageController _pageController = PageController();
 
   int get paginaActual => this._paginaActual;
 
   set paginaActual(int valor) {
     this._paginaActual = valor;
+
+    _pageController.animateToPage(valor, duration: Duration(milliseconds: 250), curve: Curves.easeOut);
+
     notifyListeners();
   }
+
+  PageController get pageController => this._pageController;
 }

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TabsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _Paginas(),
-      bottomNavigationBar: _Navegacion(),
+    return ChangeNotifierProvider(
+      create: (_) => _NavegacionModel(),
+      child: Scaffold(
+        body: _Paginas(),
+        bottomNavigationBar: _Navegacion(),
+      ),
     );
   }
 }
@@ -13,8 +17,11 @@ class TabsPage extends StatelessWidget {
 class _Navegacion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final navegacionModel = Provider.of<_NavegacionModel>(context);
+
     return BottomNavigationBar(
       currentIndex: 0,
+      onTap: (i) => print('$i'),
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline),
@@ -47,5 +54,15 @@ class _Paginas extends StatelessWidget {
   }
 }
 
+// Clase que notificara a los Widget cuando redibujarse
+// Estructura de un Provider Basico
+class _NavegacionModel with ChangeNotifier {
+  int _paginaActual = 0;
 
+  int get paginaActual => this._paginaActual;
 
+  set paginaActual(int valor) {
+    this._paginaActual = valor;
+    notifyListeners();
+  }
+}

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/pages/tab1_page.dart';
+
 import 'package:provider/provider.dart';
 
 class TabsPage extends StatelessWidget {
@@ -42,7 +44,6 @@ class _Navegacion extends StatelessWidget {
 class _Paginas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     final navegacionModel = Provider.of<_NavegacionModel>(context);
 
     return PageView(
@@ -50,9 +51,7 @@ class _Paginas extends StatelessWidget {
       // physics: BouncingScrollPhysics(),
       physics: NeverScrollableScrollPhysics(),
       children: [
-        Container(
-          color: Colors.red,
-        ),
+        Tab1Page(),
         Container(
           color: Colors.green,
         ),
@@ -72,7 +71,8 @@ class _NavegacionModel with ChangeNotifier {
   set paginaActual(int valor) {
     this._paginaActual = valor;
 
-    _pageController.animateToPage(valor, duration: Duration(milliseconds: 250), curve: Curves.easeOut);
+    _pageController.animateToPage(valor,
+        duration: Duration(milliseconds: 250), curve: Curves.easeOut);
 
     notifyListeners();
   }

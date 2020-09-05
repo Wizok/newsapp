@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/src/pages/tab1_page.dart';
+import 'package:newsapp/src/pages/tab2_page.dart';
 
 import 'package:provider/provider.dart';
 
@@ -30,11 +31,11 @@ class _Navegacion extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline),
-          title: Text('Menu 1'),
+          title: Text('Noticias'),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.public),
-          title: Text('Menu 2'),
+          title: Text('Categorías'),
         ),
       ],
     );
@@ -52,9 +53,7 @@ class _Paginas extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       children: [
         Tab1Page(),
-        Container(
-          color: Colors.green,
-        ),
+        Tab2Page(),
       ],
     );
   }
